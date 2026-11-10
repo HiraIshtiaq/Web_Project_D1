@@ -1,0 +1,120 @@
+<html>
+<head>
+    <title>SmartPark - User Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <img src="logo.png" width="40" height="40" alt="Logo">
+            SmartPark
+        </a>
+        <div>
+            <a href="#parking" class="btn btn-outline-light btn-sm">Find Parking</a>
+            <a href="#bookings" class="btn btn-outline-light btn-sm">My Bookings</a>
+            <a href="index.html" class="btn btn-danger btn-sm">Logout</a>
+        </div>
+    </div>
+</nav>
+<div class="container py-4">
+    <h4 class="mb-3">Welcome, Hira!</h4>
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-4">
+            <div class="card p-3 text-center">
+                <p class="text-muted mb-1">Active Bookings</p>
+                <h3>2</h3>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="card p-3 text-center">
+                <p class="text-muted mb-1">Total Bookings</p>
+                <h3>4</h3>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="card p-3 text-center">
+                <p class="text-muted mb-1">Total Spent</p>
+                <h3>Rs. 1200</h3>
+            </div>
+        </div>
+    </div>
+    <h5 id="parking" class="mb-3">Available Parking</h5>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card p-3 h-100">
+                <h6>Location 1</h6>
+                <p class="text-muted mb-1">Central Park</p>
+                <p>Rs. 100 / hour</p>
+                <span class="badge bg-success">12 Slots Free</span>
+               <a href="#bookings" class="btn btn-primary btn-sm mt-3">Book Now</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 h-100">
+                <h6>Location 2</h6>
+                <p class="text-muted mb-1">Ferozepur Road</p>
+                <p>Rs. 150 / hour</p>
+                <span class="badge bg-success">5 Slots Free</span>
+                <a href="#bookings" class="btn btn-primary btn-sm mt-3">Book Now</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 h-100">
+                <h6>Location 3</h6>
+                <p class="text-muted mb-1">Airport Road</p>
+                <p>Rs. 200 / hour</p>
+                <span class="badge bg-success">22 Slots Free</span>
+                <a href="#bookings" class="btn btn-primary btn-sm mt-3">Book Now</a>
+            </div>
+        </div>
+    </div>
+    <h5 id="bookings" class="mb-3">My Bookings</h5>
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Location</th>
+                        <th>Slot</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>R-101</td>
+                        <td>Location 1</td>
+                        <td>A-04</td>
+                        <td>10 Nov</td>
+                        <td>Rs. 320</td>
+                        <td><span class="badge bg-success">Confirmed</span></td>
+                    </tr>
+                    <tr>
+                        <td>R-102</td>
+                        <td>Location 2</td>
+                        <td>B-11</td>
+                        <td>08 Nov</td>
+                        <td>Rs. 470</td>
+                        <td><span class="badge bg-secondary">Completed</span></td>
+                    </tr>
+                    <tr>
+                        <td>R-103</td>
+                        <td>Location 3</td>
+                        <td>C-02</td>
+                        <td>05 Nov</td>
+                        <td>Rs. 620</td>
+                        <td><span class="badge bg-danger">Overstay</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer class="bg-dark text-white text-center p-3">
+    2026 SmartPark - Hira Ishtiaq - BSEF24A017
+</footer>
+</body>
+</html>
