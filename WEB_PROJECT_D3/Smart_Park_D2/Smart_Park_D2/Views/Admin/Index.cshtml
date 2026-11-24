@@ -1,0 +1,51 @@
+﻿@model Smart_Park_D2.Models.ViewModels.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container py-4">
+
+    <h4 class="mb-3">Welcome, Admin!</h4>
+
+    <div id="dashboard">
+        <partial name="_DashboardStats" model="Model" />
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 id="parking">Parking Management</h5>
+
+        <a href="/Admin/AddLocation" class="btn btn-primary btn-sm">
+            + Add Location
+        </a>
+    </div>
+
+    <div id="parkingLocations">
+        <partial name="_ParkingLocations" model="Model.ParkingLocations" />
+    </div>
+
+    <h5 id="users" class="mb-3">Registered Users</h5>
+
+    <div id="registeredUsers">
+        <partial name="_UsersTable" model="Model.Users" />
+    </div>
+
+    <h5 id="bookings" class="mb-3">All Bookings</h5>
+
+    <div id="allBookings">
+        <partial name="_BookingsTable" model="Model.Bookings" />
+    </div>
+
+</div>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="container">
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    </div>
+}
+@section Scripts {
+    <script src="~/js/admin.js"></script>
+}

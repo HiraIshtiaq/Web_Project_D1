@@ -1,0 +1,163 @@
+﻿@model Smart_Park_D2.Models.ViewModels.AddParkingLocationViewModel
+
+@{
+    ViewData["Title"] = "Update Parking Location";
+}
+
+<div class="container mt-4">
+
+    <h2>Update Parking Location</h2>
+
+    <form action="/Admin/UpdateLocation" method="post">
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label>Location Name</label>
+            <input type="text" name="Name"
+                   value="@Model.Name"
+                   class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Address</label>
+            <input type="text" name="Address"
+                   value="@Model.Address"
+                   class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Rate Per Hour</label>
+            <input type="number" name="RatePerHour"
+                   value="@Model.RatePerHour"
+                   class="form-control" min="1" required />
+        </div>
+
+        <hr />
+
+        <h5>Parking Rows</h5>
+
+        <div id="rowsContainer">
+
+            @for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <div class="row mb-3 parking-row">
+
+                    <div class="col-md-5">
+                        <label>Row Name</label>
+                        <input type="text"
+                               name="Rows[@i].RowName"
+                               value="@Model.Rows[i].RowName"
+                               class="form-control row-name"
+                               required />
+                    </div>
+
+                    <div class="col-md-5">
+                        <label>Number of Slots</label>
+                        <input type="number"
+                               name="Rows[@i].NumberOfSlots"
+                               value="@Model.Rows[i].NumberOfSlots"
+                               class="form-control slot-count"
+                               min="1"
+                               required />
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button"
+                                onclick="removeRow(this)"
+                                class="btn btn-danger">
+                            Remove
+                        </button>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <button type="button" onclick="addRow()" class="btn btn-secondary">
+            + Add Row
+        </button>
+
+        <h5 class="mt-3">
+            Total Slots: <span id="totalSlots">0</span>
+        </h5>
+
+        <button type="submit" class="btn btn-primary mt-3">
+            Update Location
+        </button>
+
+        <a href="/Admin/Index" class="btn btn-secondary mt-3">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+<script>
+
+    function addRow() {
+
+        var container = document.getElementById("rowsContainer");
+
+        var row = `
+            <div class="row mb-3 parking-row">
+
+                <div class="col-md-5">
+                    <input type="text" class="form-control row-name"
+                           placeholder="Enter Row Name" required>
+                </div>
+
+                <div class="col-md-5">
+                    <input type="number" class="form-control slot-count"
+                           value="10" min="1" required>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button" onclick="removeRow(this)"
+                            class="btn btn-danger">
+                        Remove
+                    </button>
+                </div>
+
+            </div>
+        `;
+
+        var newRow = document.createElement("div");
+        newRow.innerHTML = row;
+
+        container.appendChild(newRow.firstElementChild);
+
+        updateTotal();
+    }
+
+    function removeRow(button) {
+        button.parentElement.parentElement.remove();
+        updateTotal();
+    }
+
+    function updateTotal() {
+
+        var rows = document.getElementsByClassName("parking-row");
+        var total = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+
+            var rowName = rows[i].getElementsByClassName("row-name")[0];
+            var slots = rows[i].getElementsByClassName("slot-count")[0];
+
+            rowName.name = "Rows[" + i + "].RowName";
+            slots.name = "Rows[" + i + "].NumberOfSlots";
+
+            total = total + Number(slots.value);
+        }
+
+        document.getElementById("totalSlots").innerHTML = total;
+    }
+
+    document.getElementById("rowsContainer").oninput = updateTotal;
+
+    updateTotal();
+
+</script>

@@ -1,0 +1,97 @@
+﻿@model Smart_Park_D2.Models.ViewModels.BookNowViewModel
+
+@{
+    ViewData["Title"] = "Book Parking";
+}
+
+<div class="container py-4">
+    <h4>Book Parking</h4>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <div class="card p-4 mt-3">
+        <h5>@Model.ParkingLocationName</h5>
+        <p>@Model.Address</p>
+        <p>Rate: Rs. @Model.RatePerHour / hour</p>
+        <p>Available Slots: @Model.AvailableSlots.Count</p>
+    </div>
+
+    @if (Model.AvailableSlots.Count == 0)
+    {
+        <div class="alert alert-warning mt-3">
+            No parking slots are currently available.
+        </div>
+    }
+    else
+    {
+        <div class="card p-4 mt-3">
+            <form action="/User/BookNow" method="post">
+
+                <input type="hidden" name="ParkingLocationId"
+                       value="@Model.ParkingLocationId" />
+
+                <h5>Booking Details</h5>
+
+                <div class="mb-3">
+                    <label>Select Parking Slot</label>
+                    <select name="SlotNumber" class="form-select" required>
+                        <option value="">Select Slot</option>
+                        @foreach (var slot in Model.AvailableSlots)
+                        {
+                            <option value="@slot.SlotNumber">
+                                @slot.SlotNumber
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Booking Date and Time</label>
+                    <input type="datetime-local" name="BookingDate"
+                           class="form-control"
+                           value="@Model.BookingDate.ToString("yyyy-MM-ddTHH:mm")"
+                           required />
+                </div>
+
+                <div class="mb-3">
+                    <label>Parking Duration (Minutes)</label>
+                    <input type="number" name="DurationMinutes"
+                           id="durationMinutes"
+                           class="form-control"
+                           value="60" min="30" step="30" required />
+                </div>
+
+                <h6>
+                    Estimated Amount: Rs.
+                    <span id="amount">@Model.RatePerHour</span>
+                </h6>
+
+                <button type="submit" class="btn btn-primary mt-3">
+                    Confirm Booking
+                </button>
+
+                <a href="/User/Index" class="btn btn-secondary mt-3">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    }
+</div>
+<script>
+    var durationInput = document.getElementById("durationMinutes");
+
+    if (durationInput != null) {
+        var rate = @Model.RatePerHour;
+
+        durationInput.oninput = function () {
+            var minutes = Number(this.value);
+            var amount = rate * minutes / 60;
+
+            document.getElementById("amount").innerHTML = amount.toFixed(2);
+        };
+    }
+</script>
